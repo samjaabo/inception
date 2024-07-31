@@ -1,9 +1,8 @@
-FROM alpine:3.19
+FROM debian:bullseye   
 
-RUN apk update && apk upgrade && apk add nginx openssl
+RUN apt update -y && apt upgrade -y && apt install -y nginx openssl
 
 COPY conf/nginx.conf /etc/nginx/nginx.conf
-
 
 RUN mkdir -p /etc/nginx/ssl
 

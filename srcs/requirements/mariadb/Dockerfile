@@ -1,8 +1,11 @@
-FROM alpine:3.19
+FROM debian:bullseye
 
-RUN apk update && apk upgrade && apk add mariadb
+RUN apt update -y
+RUN apt install mariadb-server -y
 
 COPY conf/50-server.cnf	/etc/mysql/mariadb.conf.d/50-server.cnf
-COPY tools/script.sh /
+RUN chmod 644 /etc/mysql/mariadb.conf.d/50-server.cnf
+COPY tools/script.sh .
+RUN chmod +x script.sh
 
-CMD ['/script.sh']
+CMD ["./script.sh"]

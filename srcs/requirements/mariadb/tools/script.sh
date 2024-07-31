@@ -1,9 +1,9 @@
-#!/bin/sh
+#!bin/bash
+ echo "hi"
 
-rc-service mariadb start
+service mariadb start
 
-sleep 6
-
+sleep 5
 
 echo "CREATE DATABASE IF NOT EXISTS $SQL_DATABASE;" > file
 
@@ -15,6 +15,6 @@ echo "FLUSH PRIVILEGES;" >> file
 
 mysql  < file
 
-rc-service mariadb stop
+service mariadb stop
 
 mysqld_safe
