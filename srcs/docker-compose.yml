@@ -55,3 +55,4 @@ volumes:
 
 networks:
   srcs_inception:
+    driver: bridge

@@ -26,6 +26,7 @@ if ! wp core is-installed --allow-root --path=/var/www/html > /dev/null 2>&1 ; t
 	wp user create $USER $EMAIL --role=author --user_pass=$PASSWORD --allow-root --path=/var/www/html
 
 	echo "my-logs: wp user create"
+
 fi
 
 # create user if not exist
