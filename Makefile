@@ -15,8 +15,8 @@ clear:
 	docker rm $(docker ps -q) || true
 	docker rmi $(docker images -q) || true
 	docker volume rm $(docker volume ls -q) || true
-	sudo rm -rf  /workspaces/home/samjaabo/data/wordpress/*
-	sudo rm -rf  /workspaces/home/samjaabo/data/mariadb/*
+	# rm -rf  /workspaces/home/samjaabo/data/wordpress/*
+	# rm -rf  /workspaces/home/samjaabo/data/mariadb/*
 
 
 rm-volumes:
