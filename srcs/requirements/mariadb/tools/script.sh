@@ -1,19 +1,15 @@
 #!bin/bash
- echo "hi"
-
 service mariadb start
 
-sleep 5
+sleep 15
 
-echo "CREATE DATABASE IF NOT EXISTS $SQL_DATABASE;" > file
+echo "CREATE DATABASE IF NOT EXISTS $SQL_DATABASE;" | mysql
 
-echo "CREATE USER IF NOT EXISTS '$MYSQL_USER'@'%' identified by '$MYSQL_PASSWORD';" >> file
+echo "CREATE USER IF NOT EXISTS '$MYSQL_USER'@'%' identified by '$MYSQL_PASSWORD';" | mysql
 
-echo "GRANT ALL PRIVILEGES ON $SQL_DATABASE.* TO '$MYSQL_USER'@'%' ;" >> file
+echo "GRANT ALL PRIVILEGES ON $SQL_DATABASE.* TO '$MYSQL_USER'@'%' ;" | mysql
 
-echo "FLUSH PRIVILEGES;" >> file
-
-mysql  < file
+echo "FLUSH PRIVILEGES;" | mysql
 
 service mariadb stop
 

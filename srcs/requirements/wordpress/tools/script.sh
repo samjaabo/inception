@@ -1,5 +1,6 @@
 #!/bin/bash
-sleep 10
+sleep 30
+
 mkdir -p /run/php
 
 if ! wp core is-installed --allow-root --path=/var/www/html > /dev/null 2>&1 ; then

@@ -1,58 +1,42 @@
+version: '3'
+
 services:
   nginx:
-      container_name: nginx
-      networks:
-          - srcs_inception
-      build:
-          context: requirements/nginx
-          dockerfile: Dockerfile
-      env_file: .env
-      volumes:
-          - wordpress:/var/www/html
-      restart: on-failure
-      ports:
-          - "443:443"
-      depends_on:
-          - wordpress
+    depends_on: [wordpress]
+    restart: unless-stopped
+    container_name: nginx
+    networks: [inception]
+    volumes: [wordpress:/var/www/html]
+    env_file: .env
+    ports: ["443:443"]
+    build: 
+      context: requirements/nginx
+      args:
+        CERTS_DIR: ${CERTS_DIR}
+        DOMAIN_NAME: ${DOMAIN_NAME}
+
   wordpress:
-      depends_on:
-          - mariadb
-      container_name: wordpress
-      networks:
-          - srcs_inception
-      build:
-          context: requirements/wordpress
-          dockerfile: Dockerfile
-      env_file: .env
-      volumes:
-          - wordpress:/var/www/html
-      restart: on-failure
+    depends_on: [mariadb]
+    restart: unless-stopped
+    container_name: wordpress
+    networks: [inception]
+    volumes: [wordpress:/var/www/html]
+    env_file: .env
+    build: requirements/wordpress
+
   mariadb:
-      container_name: mariadb
-      networks:
-          - srcs_inception
-      build:
-          context: requirements/mariadb
-          dockerfile: Dockerfile
-      env_file: .env
-      volumes:
-          - mariadb:/var/lib/mysql
-      restart: on-failure
+    restart: unless-stopped
+    container_name: mariadb
+    networks: [inception]
+    volumes: [mariadb:/var/lib/mysql]
+    env_file: .env
+    build: requirements/mariadb
 
 volumes:
-    wordpress:
-        driver: local
-        driver_opts:
-            device:  /Users/samjaabo/data/wordpress
-            o: bind
-            type: none
-    mariadb:
-        driver: local
-        driver_opts:
-            device: /Users/samjaabo/data/mariadb
-            o: bind
-            type: none
+  wordpress:
+    name: wordpress
+  mariadb:
+    name: mariadb
 
 networks:
-  srcs_inception:
-    driver: bridge
+  inception:
