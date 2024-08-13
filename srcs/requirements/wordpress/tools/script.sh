@@ -1,5 +1,4 @@
 #!/bin/bash
-sleep 30
 
 mkdir -p /run/php
 
@@ -12,8 +11,6 @@ if ! wp core is-installed --allow-root --path=/var/www/html > /dev/null 2>&1 ; t
 	wp config set DB_PASSWORD $MYSQL_PASSWORD --allow-root --path='/var/www/html'
 	wp config set DB_HOST 'mariadb:3306' --allow-root --path='/var/www/html'
 
-	echo "my-logs: wp core download"
-
 	wp core install --allow-root \
 	--url=$DOMAIN_NAME \
 	--title=$WP_TITLE \
@@ -22,19 +19,10 @@ if ! wp core is-installed --allow-root --path=/var/www/html > /dev/null 2>&1 ; t
     --admin_email=$WP_ADMIN_EMAIL \
 	--path='/var/www/html'
 
-	echo "my-logs: wp core install"
-
 	wp user create $USER $EMAIL --role=author --user_pass=$PASSWORD --allow-root --path=/var/www/html
-
-	echo "my-logs: wp user create"
 
 fi
 
-# create user if not exist
-# if ! wp user get $USER --field=user_login --allow-root --path=/var/www/html > /dev/null 2>&1 ; then
-	
-# 	echo "my-logs: wp user create"
-# fi
 
 
 

@@ -11,6 +11,6 @@ RUN chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
 COPY ./tools/script.sh /
 RUN chmod +x script.sh
 
-COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
+RUN sed -i 's/^listen = .*/listen = wordpress:9000/' /etc/php/7.4/fpm/pool.d/www.conf
 
 CMD  ["./script.sh"]

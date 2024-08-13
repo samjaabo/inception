@@ -78,7 +78,3 @@ all: build up
 # Check the status of containers and networks
 .PHONY: status
 status: ps
-
-
-echo:
-	echo "Usage: $0 arg1 [arg2 ... argN]"
