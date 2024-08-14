@@ -1,4 +1,5 @@
 #!/bin/bash
+sleep 20
 
 mkdir -p /run/php
 
@@ -12,7 +13,7 @@ if ! wp core is-installed --allow-root --path=/var/www/html > /dev/null 2>&1 ; t
 	wp config set DB_HOST 'mariadb:3306' --allow-root --path='/var/www/html'
 
 	wp core install --allow-root \
-	--url=$DOMAIN_NAME \
+	--url="https://$DOMAIN_NAME" \
 	--title=$WP_TITLE \
 	--admin_user=$WP_ADMIN_USR \
 	--admin_password=$WP_ADMIN_PWD \
@@ -22,10 +23,6 @@ if ! wp core is-installed --allow-root --path=/var/www/html > /dev/null 2>&1 ; t
 	wp user create $USER $EMAIL --role=author --user_pass=$PASSWORD --allow-root --path=/var/www/html
 
 fi
-
-
-
-
 
 
 php-fpm7.4 -F
