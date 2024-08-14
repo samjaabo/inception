@@ -25,4 +25,4 @@ if ! wp core is-installed --allow-root --path=/var/www/html > /dev/null 2>&1 ; t
 fi
 
 
-php-fpm7.4 -F
+exec php-fpm7.4 -F
